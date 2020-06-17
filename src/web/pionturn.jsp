@@ -27,8 +27,8 @@
         String ipaddr = request.getParameter("ipaddr");     
         JiveGlobals.setProperty("pionturn.ipaddr", ipaddr);   
         
-        String pionTurnEnabled = request.getParameter("pionturn.enabled");
-        JiveGlobals.setProperty("pionturn.enabled", (pionTurnEnabled != null && pionTurnEnabled.equals("on")) ? "true": "false");        
+        String enabled = request.getParameter("enabled");
+        JiveGlobals.setProperty("pionturn.enabled", (enabled != null && enabled.equals("on")) ? "true": "false");        
     }
 
 %>
@@ -58,7 +58,7 @@
             <tbody>  
             <tr>
                 <td nowrap  colspan="2">
-                    <input type="checkbox" name="pionTurnEnabled"<%= (JiveGlobals.getProperty("pionturn.enabled", "true").equals("true")) ? " checked" : "" %>>
+                    <input type="checkbox" name="enabled"<%= (JiveGlobals.getProperty("pionturn.enabled", "true").equals("true")) ? " checked" : "" %>>
                     <fmt:message key="config.page.configuration.enabled" />       
                 </td>  
             </tr>

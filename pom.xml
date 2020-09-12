@@ -18,7 +18,7 @@
     <description>Provides a TURN/STUN Server for Openfire</description>
     <build>
         <sourceDirectory>src/java</sourceDirectory> 
-        <plugins>
+        <plugins>       
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -31,9 +31,9 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/pion/turn/releases/download/v2.0.2/turn_2.0.2_Windows_x86_64.tar.gz</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}/win-64</outputDirectory>
+                            <url>https://github.com/inspired-futures/turn/releases/download/v0.0.1/turn-server-log.exe</url>
+                            <unpack>false</unpack>
+                            <outputDirectory>classes/win-64</outputDirectory>
                         </configuration>
                     </execution>   
                     <execution>
@@ -43,53 +43,13 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/pion/turn/releases/download/v2.0.2/turn_2.0.2_Linux_x86_64.tar.gz</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}/linux-64</outputDirectory>
+                            <url>https://github.com/inspired-futures/turn/releases/download/v0.0.1/turn-server-log</url>
+                            <unpack>false</unpack>
+                            <outputDirectory>classes/linux-64</outputDirectory>
                         </configuration>
                     </execution>                     
                 </executions>
             </plugin>  
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                <execution>
-                    <id>copy-win-64</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                    <goal>copy-resources</goal>
-                    </goals>
-
-                    <configuration>
-                    <overwrite>true</overwrite>                 
-                    <outputDirectory>classes/win-64</outputDirectory>
-                    <resources>
-                        <resource>
-                        <directory>${project.build.directory}/win-64</directory>
-                        </resource>
-                    </resources>
-                    </configuration>
-                </execution>
-                <execution>
-                    <id>copy-linux-64</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                    <goal>copy-resources</goal>
-                    </goals>
-
-                    <configuration>
-                    <overwrite>true</overwrite>                 
-                    <outputDirectory>classes/linux-64</outputDirectory>
-                    <resources>
-                        <resource>
-                        <directory>${project.build.directory}/linux-64</directory>
-                        </resource>
-                    </resources>
-                    </configuration>
-                </execution>                
-               </executions>
-            </plugin>    
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

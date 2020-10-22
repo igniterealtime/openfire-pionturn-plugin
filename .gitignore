@@ -1,5 +1,3 @@
 .idea/
 target/
-classes/linux-64
-classes/win-64
 *.cmd

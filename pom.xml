@@ -31,7 +31,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/inspired-futures/turn/releases/download/v0.0.1/turn-server-log.exe</url>
+                            <url>https://github.com/inspired-futures/turn/releases/download/v0.0.2/turn-server-log.exe</url>
                             <unpack>false</unpack>
                             <outputDirectory>classes/win-64</outputDirectory>
                         </configuration>
@@ -43,7 +43,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <url>https://github.com/inspired-futures/turn/releases/download/v0.0.1/turn-server-log</url>
+                            <url>https://github.com/inspired-futures/turn/releases/download/v0.0.2/turn-server-log</url>
                             <unpack>false</unpack>
                             <outputDirectory>classes/linux-64</outputDirectory>
                         </configuration>

@@ -1,20 +1,11 @@
-# PionTurn Plugin for openfire
+# Openfire Pion TURN Plugin
 
-This plugin uses the Pion Turn Project (https://github.com/pion/turn) to create a TURN/STUN server for Openfire.
+This plugin provides a TURN/STUN Server for Openfire.
 
-## Installation
+## CI Build Status
 
-Copy the pionturn.jar file to the OPENFIRE_HOME/plugins directory
+[![Build Status](https://github.com/igniterealtime/openfire-pionturn-plugin/workflows/Java%20CI/badge.svg)](https://github.com/igniterealtime/openfire-pionturn-plugin/actions)
 
-## Configuration
+## Reporting Issues
 
-Under Server|Media Services settings -> PionTurn tab you can configure the parameters.
-After you've set up the STUN and TURN service, you'll need to configure Openfire to expose the availability of this new service to your users. You can do this easily with the External Service Discovery plugin for Openfire.
-
-## How to use
-
-See this blog - https://discourse.igniterealtime.org/t/preparing-openfire-for-audio-video-calls-with-conversations/87828
-
-## Known Issues
-This version has embedded binaries for only Linux 64 and Windows 64.
-
+Issues may be reported to the [forums](https://discourse.igniterealtime.org) or via this repo's [Github Issues](https://github.com/igniterealtime/openfire-pionturn-plugin).

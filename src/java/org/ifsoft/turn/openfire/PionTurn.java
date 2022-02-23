@@ -160,10 +160,17 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
             {
                 suffix = "linux-64" + File.separator + "turn-server-log";
             }
+
             else if(OSUtils.IS_WINDOWS64)
             {
                 suffix = "win-64" + File.separator + "turn-server-log.exe";
             }
+
+            else if(OSUtils.IS_WINDOWS32)
+            {
+                suffix = "win-32" + File.separator + "turn-server-log.exe";
+            }
+			
             else if(OSUtils.IS_MAC64)
             {
                 suffix = "mac-64" + File.separator + "turn-server-log";

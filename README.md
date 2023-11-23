@@ -6,14 +6,19 @@ This plugin provides a TURN/STUN Server for Openfire.
 
 [![Build Status](https://github.com/igniterealtime/openfire-pionturn-plugin/workflows/Java%20CI/badge.svg)](https://github.com/igniterealtime/openfire-pionturn-plugin/actions)
 
-<h2>Overview</h2>
+## Overview
 
-<p>
 This plugin uses the Pion Turn Project (https://github.com/pion/turn) to create a TURN/STUN server for Openfire.
-</p>
 
-<h2>Known Issues</h2>
-This version has embedded binaries for only Linux 64 and Windows 64 only.
+This plugin is only useful when Openfire is in a network location that is **not** behind restrictive constructs like NAT (one of it's main purposes is to *help* clients circumvent NATs in the first place). The STUN service itself needs to see the 'public' IP address of the client (and possibly vice versa). That works best if the server is itself in a public network segment. The TURN service is more elaborate: instead of just being used to report on the observed client IP/port, it will act as a proxy. That means that all data flows over the TURN server (which isn't true for a STUN server). In any case: make your Openfire server have a public IPs, not something behind a NAT.
+
+When your Openfire is behind a NAT, it probably **makes less sense** to run a STUN/TURN server embedded in Openfire.
+When this is the case, a valid alternative might be to position a stand-alone STUN/TURN server somewhere 'public' (not NATted), and tie that to Openfire using the external service discovery plugin for Openfire.
+
+When you have clients from outside your network wanting to do STUN/TURN, then it's likely that placing your openfire server in a DMZ will make it easier for them to connect to it. Please note that there probably are drawbacks with regards to security policies etc.
+
+## Known Issues
+This version has embedded binaries for only Linux 64 and Windows 64.
 <p>
 
 </p>

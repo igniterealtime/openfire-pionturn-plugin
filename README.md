@@ -13,7 +13,7 @@ This plugin uses the Pion Turn Project (https://github.com/pion/turn) to create 
 </p>
 
 <h2>Known Issues</h2>
-This version has embedded binaries for only Linux 64, MacOS 64, Windows 64 and Windows 32.
+This version has embedded binaries for only Linux 64 and Windows 64 only.
 <p>
 
 </p>

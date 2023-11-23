@@ -81,6 +81,8 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
 
             String ipaddr = " -public-ip " + JiveGlobals.getProperty("pionturn.ipaddr", getIpAddress());
             String port = " -port " + JiveGlobals.getProperty("pionturn.port", getPort());
+            String minPort = " -min_port " + JiveGlobals.getProperty("pionturn.min.port", getMinPort());			
+            String maxPort = " -max_port " + JiveGlobals.getProperty("pionturn.max.port", getMaxPort());			
             String realm = " -realm " + XMPPServer.getInstance().getServerInfo().getXMPPDomain();
             String username = JiveGlobals.getProperty("pionturn.username", "admin");
             String password = JiveGlobals.getProperty("pionturn.password", "admin");
@@ -88,7 +90,7 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
             if (!"".equals(username) && !"".equals(password))
             {
                 String authentication = " -users " + username + "=" + password;
-                String cmd = pionTurnExePath + ipaddr + port + realm + authentication;
+                String cmd = pionTurnExePath + ipaddr + port + minPort + maxPort + realm + authentication;
                 pionTurnThread = Spawn.startProcess(cmd, new File(pionTurnHomePath), this);
 
                 Log.info("PionTurn enabled " + cmd);
@@ -107,9 +109,16 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
         if (pionTurnThread != null) pionTurnThread.sendLine(command);
     }
 
-    public String getPort()
-    {
+    public String getPort() {
         return "3478";
+    }
+	
+    public String getMinPort() {
+        return "50000";
+    }
+	
+    public String getMaxPort() {
+        return "55000";
     }
 
     public String getIpAddress()
@@ -164,16 +173,6 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
             else if(OSUtils.IS_WINDOWS64)
             {
                 suffix = "win-64" + File.separator + "turn-server-log.exe";
-            }
-
-            else if(OSUtils.IS_WINDOWS32)
-            {
-                suffix = "win-32" + File.separator + "turn-server-log.exe";
-            }
-			
-            else if(OSUtils.IS_MAC64)
-            {
-                suffix = "mac-64" + File.separator + "turn-server-log";
             }
 
             if (suffix != null)

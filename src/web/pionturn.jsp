@@ -24,6 +24,12 @@
         String port = request.getParameter("port");     
         JiveGlobals.setProperty("pionturn.port", port);   
         
+        String min_port = request.getParameter("min_port");     
+        JiveGlobals.setProperty("pionturn.min.port", min_port); 
+        
+        String max_port = request.getParameter("max_port");     
+        JiveGlobals.setProperty("pionturn.max.port", max_port); 
+        
         String ipaddr = request.getParameter("ipaddr");     
         JiveGlobals.setProperty("pionturn.ipaddr", ipaddr);   
         
@@ -85,13 +91,29 @@
                 <td><input type="text" size="50" maxlength="100" name="ipaddr" required
                        value="<%= JiveGlobals.getProperty("pionturn.ipaddr", plugin.getIpAddress()) %>">
                 </td>                               
-            </tr>     
+            </tr>   
             <tr>
                 <td align="left" width="150">
                     <fmt:message key="config.page.configuration.port"/>
                 </td>
                 <td><input type="text" size="50" maxlength="100" name="port" required
                        value="<%= JiveGlobals.getProperty("pionturn.port", plugin.getPort()) %>">
+                </td>                               
+            </tr> 	
+            <tr>
+                <td align="left" width="150">
+                    <fmt:message key="config.page.configuration.min.port"/>
+                </td>
+                <td><input type="text" size="50" maxlength="100" name="min_port" required
+                       value="<%= JiveGlobals.getProperty("pionturn.min.port", plugin.getMinPort()) %>">
+                </td>                               
+            </tr> 			
+            <tr>
+                <td align="left" width="150">
+                    <fmt:message key="config.page.configuration.max.port"/>
+                </td>
+                <td><input type="text" size="50" maxlength="100" name="max_port" required
+                       value="<%= JiveGlobals.getProperty("pionturn.max.port", plugin.getMaxPort()) %>">
                 </td>                               
             </tr>             
             </tbody>

@@ -75,7 +75,7 @@
                 <td align="left" width="150">
                     <fmt:message key="config.page.configuration.secret"/>
                 </td>
-                <td><input type="text" size="50" maxlength="100" name="secret" value="<%= JiveGlobals.getProperty("pionturn.secret", "") %>">
+                <td><input type="password" size="50" maxlength="100" name="secret" value="<%= JiveGlobals.getProperty("pionturn.secret", "") %>">
                 </td>
             </tr> 			
             <tr>

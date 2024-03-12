@@ -86,18 +86,27 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
             String realm = " -realm " + XMPPServer.getInstance().getServerInfo().getXMPPDomain();
             String username = JiveGlobals.getProperty("pionturn.username", "admin");
             String password = JiveGlobals.getProperty("pionturn.password", "admin");
+			String authSecret = JiveGlobals.getProperty("pionturn.secret", "");
 
-            if (!"".equals(username) && !"".equals(password))
-            {
-                String authentication = " -users " + username + "=" + password;
-                String cmd = pionTurnExePath + ipaddr + port + minPort + maxPort + realm + authentication;
-                pionTurnThread = Spawn.startProcess(cmd, new File(pionTurnHomePath), this);
-
-                Log.info("PionTurn enabled " + cmd);
-            }
-            else {
-                Log.warn("PionTurn not enabled, password or username is missing");
-            }
+			String authentication = null;
+			
+			if (authSecret == null || "".equals(authSecret)) 
+			{
+				if ("".equals(username) || "".equals(password)) {
+					Log.warn("PionTurn not enabled, secret or (password and username is missing)");
+				} else {
+					authentication = " -users " + username + "=" + password;					
+				}
+			} else {
+				authentication = " -authSecret " + authSecret;
+			}
+			
+			if (authentication != null) {
+				String cmd = pionTurnExePath + ipaddr + port + minPort + maxPort + realm + authentication;
+				pionTurnThread = Spawn.startProcess(cmd, new File(pionTurnHomePath), this);
+				
+				Log.info("PionTurn enabled " + cmd);				
+			}
 
         } else {
             Log.info("PionTurn disabled");

@@ -15,8 +15,11 @@
 
     if (update)
     {    
+        String secret = request.getParameter("secret");     
+        JiveGlobals.setProperty("pionturn.secret", secret);   
+
         String username = request.getParameter("username");     
-        JiveGlobals.setProperty("pionturn.username", username);     
+        JiveGlobals.setProperty("pionturn.username", username); 		
 
         String password = request.getParameter("password");     
         JiveGlobals.setProperty("pionturn.password", password);   
@@ -70,18 +73,23 @@
             </tr>
             <tr>
                 <td align="left" width="150">
+                    <fmt:message key="config.page.configuration.secret"/>
+                </td>
+                <td><input type="text" size="50" maxlength="100" name="secret" value="<%= JiveGlobals.getProperty("pionturn.secret", "") %>">
+                </td>
+            </tr> 			
+            <tr>
+                <td align="left" width="150">
                     <fmt:message key="config.page.configuration.username"/>
                 </td>
-                <td><input type="text" size="50" maxlength="100" name="username" required
-                       value="<%= JiveGlobals.getProperty("pionturn.username", "admin") %>">
+                <td><input type="text" size="50" maxlength="100" name="username" value="<%= JiveGlobals.getProperty("pionturn.username", "admin") %>">
                 </td>
             </tr>   
             <tr>
                 <td align="left" width="150">
                     <fmt:message key="config.page.configuration.password"/>
                 </td>
-                <td><input type="password" size="50" maxlength="100" name="password" required
-                       value="<%= JiveGlobals.getProperty("pionturn.password", "admin") %>">
+                <td><input type="password" size="50" maxlength="100" name="password" value="<%= JiveGlobals.getProperty("pionturn.password", "admin") %>">
                 </td>
             </tr>              
             <tr>

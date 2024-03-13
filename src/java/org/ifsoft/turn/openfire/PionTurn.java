@@ -23,11 +23,16 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 import java.nio.file.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Types;
 
 import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
 import org.jivesoftware.openfire.http.HttpBindManager;
 import org.jivesoftware.openfire.XMPPServer;
+import org.jivesoftware.database.DbConnectionManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +50,7 @@ import java.util.*;
 
 import org.jitsi.util.OSUtils;
 import de.mxro.process.*;
+import org.igniterealtime.openfire.plugins.externalservicediscovery.Service;
 
 
 public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
@@ -54,6 +60,7 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
     private String pionTurnExePath = null;
     private String pionTurnHomePath = null;
     private ExecutorService executor;
+	
 
     public void destroyPlugin()
     {
@@ -208,7 +215,7 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
 
 //-------------------------------------------------------
 //
-//
+//	Property management
 //
 //-------------------------------------------------------
 
@@ -230,5 +237,70 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
     public void xmlPropertyDeleted(String property, Map<String, Object> params) {
 
     }
+	
+//-------------------------------------------------------
+//
+//	External Services Discovery 
+//
+//-------------------------------------------------------
+	
+	public Map<String, Service> getTurnServices() {
+		Map<String, Service> services = new HashMap<>();	
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try
+        {
+            con = DbConnectionManager.getConnection();
+            pstmt = con.prepareStatement( "SELECT * FROM ofExternalServices " );
+            resultSet = pstmt.executeQuery();
+            while ( resultSet.next() )
+            {
+                final long databaseId = resultSet.getLong( "serviceID" );
+
+                String name = resultSet.getString( "name" );
+                if ( resultSet.wasNull() || name == null || name.isEmpty() ) name = null;
+
+                String host = resultSet.getString( "host" );
+                if ( resultSet.wasNull() || host == null || host.isEmpty() ) host = null;
+				
+                Integer port = resultSet.getInt( "port" );
+                if ( resultSet.wasNull() ) port = null;
+
+                Boolean restricted = resultSet.getBoolean( "restricted" );
+                if ( resultSet.wasNull() ) restricted = null;
+
+                String transport = resultSet.getString( "transport" );
+                if ( resultSet.wasNull() || transport == null || transport.isEmpty() ) transport = null;
+
+                String type = resultSet.getString( "type" );
+                if ( resultSet.wasNull() || type == null || type.isEmpty() ) type = null;
+
+                String username = resultSet.getString( "username" );
+                if ( resultSet.wasNull() || username == null || username.isEmpty() )  username = null;
+				
+                String password = resultSet.getString( "password" );
+                if ( resultSet.wasNull() || password == null || password.isEmpty() ) password = null;
+
+                String sharedSecret = resultSet.getString( "sharedSecret" );
+                if ( resultSet.wasNull() || sharedSecret == null || sharedSecret.isEmpty() ) sharedSecret = null;
+
+				if (type != null && "turn".equals(type)) {
+					final Service service = new Service( databaseId, name, host, port, restricted, transport, type, username, password, sharedSecret );
+					services.put(String.valueOf(databaseId), service );                
+					Log.debug( "Selected Turn {} service at {} from database.", service.getType(), service.getHost() );
+				}
+            }
+        }
+        catch ( Exception e ) {
+            Log.error( "Unable to load services from database!", e );
+        }
+        finally {
+            DbConnectionManager.closeConnection( resultSet, pstmt, con );
+        }
+		
+        return services;		
+	}
 
 }

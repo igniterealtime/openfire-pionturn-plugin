@@ -85,7 +85,8 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
         if (pionTurnExePath != null && pionTurnEnabled)
         {
             executor = Executors.newCachedThreadPool();
-			
+
+			String hostName = XMPPServer.getInstance().getServerInfo().getHostname();			
 			String ipAddress = JiveGlobals.getProperty("pionturn.ipaddr", getIpAddress());
 			
 			try {
@@ -93,6 +94,7 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
 			} catch (Exception e) {	}			
 
             String ipaddr = " -public-ip " + ipAddress;
+            String hostname = " -host-name " + hostName;			
             String port = " -port " + JiveGlobals.getProperty("pionturn.port", getPort());
             String minPort = " -min_port " + JiveGlobals.getProperty("pionturn.min.port", getMinPort());			
             String maxPort = " -max_port " + JiveGlobals.getProperty("pionturn.max.port", getMaxPort());			
@@ -115,7 +117,7 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
 			}
 			
 			if (authentication != null) {
-				String cmd = pionTurnExePath + ipaddr + port + minPort + maxPort + realm + authentication;
+				String cmd = pionTurnExePath + hostname + ipaddr + port + minPort + maxPort + realm + authentication;
 				pionTurnThread = Spawn.startProcess(cmd, new File(pionTurnHomePath), this);
 				
 				Log.info("PionTurn enabled " + cmd);				

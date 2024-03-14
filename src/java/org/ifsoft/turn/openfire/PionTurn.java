@@ -85,8 +85,14 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
         if (pionTurnExePath != null && pionTurnEnabled)
         {
             executor = Executors.newCachedThreadPool();
+			
+			String ipAddress = JiveGlobals.getProperty("pionturn.ipaddr", getIpAddress());
+			
+			try {
+				ipAddress = InetAddress.getByName(ipAddress).getHostAddress();
+			} catch (Exception e) {	}			
 
-            String ipaddr = " -public-ip " + JiveGlobals.getProperty("pionturn.ipaddr", getIpAddress());
+            String ipaddr = " -public-ip " + ipAddress;
             String port = " -port " + JiveGlobals.getProperty("pionturn.port", getPort());
             String minPort = " -min_port " + JiveGlobals.getProperty("pionturn.min.port", getMinPort());			
             String maxPort = " -max_port " + JiveGlobals.getProperty("pionturn.max.port", getMaxPort());			

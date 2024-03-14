@@ -1,5 +1,4 @@
 <%@ page import="java.util.*" %>
-<%@ page import="java.net.*" %>
 <%@ page import="org.ifsoft.turn.openfire.*" %>
 <%@ page import="org.igniterealtime.openfire.plugins.externalservicediscovery.Service" %>
 <%@ page import="org.jivesoftware.openfire.*" %>
@@ -24,17 +23,12 @@
 			Map<String, Service> services = plugin.getTurnServices();   
 
 			if (services != null && services.containsKey(service)) {
-				Service turn = services.get(service);				
-				String ipAddress = turn.getHost();
-				
-				try {
-					ipAddress = InetAddress.getByName(ipAddress).getHostAddress();
-				} catch (Exception e) {	}				
+				Service turn = services.get(service);							
 				
 				JiveGlobals.setProperty("pionturn.secret", turn.getSharedSecret()); 
 				JiveGlobals.setProperty("pionturn.username", turn.getRawUsername()); 		    
 				JiveGlobals.setProperty("pionturn.password", turn.getRawPassword());      
-				JiveGlobals.setProperty("pionturn.ipaddr", ipAddress);  		    
+				JiveGlobals.setProperty("pionturn.ipaddr", turn.getHost());  		    
 				JiveGlobals.setProperty("pionturn.port", String.valueOf(turn.getPort()));
 			}
 			

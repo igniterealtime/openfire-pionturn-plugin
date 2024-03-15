@@ -86,11 +86,11 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
         {
             executor = Executors.newCachedThreadPool();
 
-			String hostName = XMPPServer.getInstance().getServerInfo().getHostname();			
-			String ipAddress = JiveGlobals.getProperty("pionturn.ipaddr", getIpAddress());
+			String ipAddress = JiveGlobals.getProperty("pionturn.ipaddr", getIpAddress(null));
+			String hostName = JiveGlobals.getProperty("pionturn.host", ipAddress);			
 			
 			try {
-				ipAddress = InetAddress.getByName(ipAddress).getHostAddress();
+				ipAddress = InetAddress.getByName(hostName).getHostAddress();
 			} catch (Exception e) {	}			
 
             String ipaddr = " -public-ip " + ipAddress;
@@ -145,13 +145,13 @@ public class PionTurn implements Plugin, PropertyEventListener, ProcessListener
         return "55000";
     }
 
-    public String getIpAddress()
+    public String getIpAddress(String hostname)
     {
-        String ourHostname = XMPPServer.getInstance().getServerInfo().getHostname();
+        if (hostname == null) hostname = XMPPServer.getInstance().getServerInfo().getHostname();
         String ourIpAddress = "127.0.0.1";
 
         try {
-            ourIpAddress = InetAddress.getByName(ourHostname).getHostAddress();
+            ourIpAddress = InetAddress.getByName(hostname).getHostAddress();
         } catch (Exception e) {
 
         }

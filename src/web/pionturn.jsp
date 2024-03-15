@@ -27,8 +27,9 @@
 				
 				JiveGlobals.setProperty("pionturn.secret", turn.getSharedSecret()); 
 				JiveGlobals.setProperty("pionturn.username", turn.getRawUsername()); 		    
-				JiveGlobals.setProperty("pionturn.password", turn.getRawPassword());      
-				JiveGlobals.setProperty("pionturn.ipaddr", turn.getHost());  		    
+				JiveGlobals.setProperty("pionturn.password", turn.getRawPassword());
+				JiveGlobals.setProperty("pionturn.host", turn.getHost());  				
+				JiveGlobals.setProperty("pionturn.ipaddr", plugin.getIpAddress(turn.getHost()));  		    
 				JiveGlobals.setProperty("pionturn.port", String.valueOf(turn.getPort()));
 			}
 			
@@ -137,7 +138,7 @@
                     <fmt:message key="config.page.configuration.ipaddr"/>
                 </td>
                 <td><input type="text" size="50" maxlength="100" name="ipaddr" required
-                       value="<%= JiveGlobals.getProperty("pionturn.ipaddr", plugin.getIpAddress()) %>">
+                       value="<%= JiveGlobals.getProperty("pionturn.ipaddr", plugin.getIpAddress(null)) %>">
                 </td>                               
             </tr>   
             <tr>

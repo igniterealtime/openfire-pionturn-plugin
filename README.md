@@ -34,7 +34,7 @@ This version has embedded binaries for only Linux 64 and Windows 64.
 <li>Type*: "TURN"</li>
 <li>Credentials: Here you have 2 options, but it is highly recommended that you go with "Shared Secret (for generating ephemeral passwords)" and then set a secret. But be aware some characters might cause some issues. So it's better to stick with alphanumericals.</li>
 After that, just click on the button "Add Service".
-<h2>Configuration of the Pion turn Plugin</h2>
+<h2>Configuration of the Pion Turn Plugin</h2>
 <img src="" />
 Head to 'Server>Media Services>Pion Turn/Stun' and set the fields:
 <li>Check the box for "Enabled"</li>

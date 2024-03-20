@@ -1,87 +1,68 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
+﻿<!DOCTYPE html>
 <html>
+
 <head>
-    <title>PionTurn Plugin Readme</title>
-    <style type="text/css">
-        BODY {
-            font-size : 100%;
-        }
-        BODY, TD, TH {
-            font-family : tahoma, verdana, arial, helvetica, sans-serif;
-            font-size : 0.8em;
-        }
-        H2 {
-             font-size : 10pt;
-             font-weight : bold;
-        }
-        A:hover {
-            text-decoration : none;
-        }
-        H1 {
-            font-family : tahoma, arial, helvetica, sans-serif;
-            font-size : 1.4em;
-            font-weight: bold;
-            border-bottom : 1px #ccc solid;
-            padding-bottom : 2px;
-        }
-
-        TT {
-            font-family : courier new;
-            font-weight : bold;
-            color : #060;
-        }
-        PRE {
-            font-family : courier new;
-            font-size : 100%;
-        }
-        #datatable TH {
-            color : #fff;
-            background-color : #2A448C;
-            text-align : left;
-        }
-        #datatable TD {
-            background-color : #FAF6EF;
-        }
-        #datatable .name {
-            background-color : #DCE2F5;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="./plugins/pionturn/style.css" />
 </head>
-<body>
 
-<h1>
-PionTurn Plugin Readme
-</h1>
-
-<h2>Overview</h2>
-
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+		<ul>
+			<li><a href="#openfire-pion-turn-plugin">Openfire Pion TURN Plugin</a>
+				<ul>
+					<li><a href="#overview">Overview</a></li>
+					<li><a href="#known-issues">Known Issues</a></li>
+					<li><a href="#reporting-issues">Reporting Issues</a></li>
+				</ul>
+			</li>
+		</ul>
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="openfire-pion-turn-plugin">Openfire Pion TURN Plugin</h1>
+<p>This plugin provides a TURN/STUN Server for Openfire.</p>
+<h2 id="overview">Overview</h2>
+<p>This plugin uses the Pion Turn Project (<a href="https://github.com/pion/turn">https://github.com/pion/turn</a>) to create a TURN/STUN server for Openfire. A TURN/STUN server is used to help users who are on uncooperative networks connect their calls or video calls.<br>
+For this plugin to work, you will also need to install the plugin “External Service Discovery” in order to expose this service to the clients.</p>
+<h2 id="known-issues">Known Issues</h2>
+<p>This version has embedded binaries for only Linux 64 and Windows 64.</p>
 <p>
-This plugin uses the Pion Turn Project (https://github.com/pion/turn) to create a TURN/STUN server for Openfire.
-</p>
-
-<h2>Known Issues</h2>
-This version has embedded binaries for only Linux 64 and Windows 64.
-<p>
-
 </p>
 <h2>Installation</h2>
-
 <ol>
     <li>Copy the pionturn.jar file to the OPENFIRE_HOME/plugins directory.</li>
     <li>Configure the admin properties page.</li>
 </ol>
+<h2>Configuration of the External Service Discovery</h2>
+<img src="./plugins/pionturn/externalservicediscovery.png">
+ Head to 
+'Server&gt;Media Services&gt;External Service Discovery' and set the fields:
+<li>Host*: With your server's external IP address if you have a static IP (highly recommended) or with your domain name (if you are running with dynamicIP)</li>
+<li>Port: Here choose a port number (you will have to allow this port in your firewall as UDP only and also port forward in case you are behind a NAT).</li> 
+<li>Description: In this one you can write anything you want, but it is recommended to write something (it will help Pionturn identify the configuration, otherwise you will see it as "null").</li>
+<li>Transport: "UDP"</li>
+<li>Type*: "TURN"</li>
+<li>Credentials: Here you have 2 options, but it is highly recommended that you go with "Shared Secret (for generating ephemeral passwords)" and then set a secret. But be aware some characters might cause some issues. So it's better to stick with alphanumericals.</li>
+After that, just click on the button "Add Service".
+<h2>Configuration of the Pion Turn Plugin</h2>
+<img src="./plugins/pionturn/pionturn.png">
+Head to 'Server&gt;Media Services&gt;Pion Turn/Stun' and set the fields:
+<li>Check the box for "Enabled"</li>
+<li>Service: Here you select the field which matches with your External Service Discovery Description(Pionturn will then grab all the info you did set there).</li>
+<li> UDP Port Range Min: this will be your lower port on the UDP range used by the TURN server. You will have to allow it on the firewall and also port forward (the whole range) in case you are behind NAT.</li>
+<li> UDP Port Range Max: this will be your higher port on the UDP range used by the TURN server. You will have to allow it on the firewall and also port forward (the whole range) in case you are behind NAT.</li>
+After that just click "Save" and don't forget to go to 'Plugins' and restart the Pionturn plugin.
+<img src="./plugins/pionturn/plugins.png">
+<h2 id="reporting-issues">Reporting Issues</h2>
+<p>Issues may be reported to the <a href="https://discourse.igniterealtime.org">forums</a> or via this repo’s <a href="https://github.com/igniterealtime/openfire-pionturn-plugin">Github Issues</a>.</p>
 
-<h2>Configuration</h2>
-
-Under Server|Media Services settings -> PionTurn tab you can configure the parameters.
-After you've set up the STUN and TURN service, you'll need to configure Openfire to expose the availability of this new service to your users. You can do this easily with the External Service Discovery plugin for Openfire.
-
-<h2>How to use</h2>
-
-<p>
-See this blog - https://discourse.igniterealtime.org/t/preparing-openfire-for-audio-video-calls-with-conversations/87828
-<p/>
-
+    </div>
+  </div>
 </body>
+
 </html>

@@ -8,7 +8,7 @@ This plugin provides a TURN/STUN Server for Openfire.
 
 ## Overview
 
-This plugin uses the Pion Turn Project (https://github.com/pion/turn) to create a TURN/STUN server for Openfire. This plugin is used to help users who are on uncooperative networks connect their calls or video calls.
+This plugin uses the Pion Turn Project (https://github.com/pion/turn) to create a TURN/STUN server for Openfire. A TURN/STUN server is used to help users who are on uncooperative networks connect their calls or video calls.
 For this plugin to work, you will also need to install the plugin "External Service Discovery" in order to expose this service to the clients.
 
 ## Known Issues
@@ -24,7 +24,7 @@ This version has embedded binaries for only Linux 64 and Windows 64.
 </ol>
 
 <h2>Configuration of the External Service Discovery</h2>
-<img src="" />
+<img src="https://github.com/Zoidberg2/Zoirberg2.github.io/blob/main/externalservicediscovery.png?raw=true" />
  Head to 
 'Server>Media Services>External Service Discovery' and set the fields:
 <li>Host*: With your server's external IP address if you have a static IP (highly recommended) or with your domain name (if you are running with dynamicIP)</li>
@@ -35,13 +35,16 @@ This version has embedded binaries for only Linux 64 and Windows 64.
 <li>Credentials: Here you have 2 options, but it is highly recommended that you go with "Shared Secret (for generating ephemeral passwords)" and then set a secret. But be aware some characters might cause some issues. So it's better to stick with alphanumericals.</li>
 After that, just click on the button "Add Service".
 <h2>Configuration of the Pion Turn Plugin</h2>
-<img src="" />
+<img src="https://github.com/Zoidberg2/Zoirberg2.github.io/blob/main/pionturn.png?raw=true" />
 Head to 'Server>Media Services>Pion Turn/Stun' and set the fields:
 <li>Check the box for "Enabled"</li>
 <li>Service: Here you select the field which matches with your External Service Discovery Description(Pionturn will then grab all the info you did set there).</li>
-<li> UDP Port Range Min: this will be your lower port on the UDP range used by the TURN server. You will have to allow it on the firewall and also port forward (the whole range)in case you are behind NAT.</li>
-<li> UDP Port Range Max:this will be your higher port on the UDP range used by the TURN server. You will have to allow it on the firewall and also port forward (the whole range)in case you are behind NAT.</li>
+<li> UDP Port Range Min: this will be your lower port on the UDP range used by the TURN server. You will have to allow it on the firewall and also port forward (the whole range) in case you are behind NAT.</li>
+<li> UDP Port Range Max: this will be your higher port on the UDP range used by the TURN server. You will have to allow it on the firewall and also port forward (the whole range) in case you are behind NAT.</li>
 After that just click "Save" and don't forget to go to 'Plugins' and restart the Pionturn plugin.
+<img src="https://github.com/Zoidberg2/Zoirberg2.github.io/blob/main/plugins.png?raw=true" />
+
+
 
 
 ## Reporting Issues

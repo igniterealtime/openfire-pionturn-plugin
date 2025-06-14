@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Ignite Realtime Foundation. All rights reserved.
+ * Copyright (C) 2017-2025 Ignite Realtime Foundation. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package org.igniterealtime.openfire.plugins.externalservicediscovery;
 
 import org.jivesoftware.database.JiveID;
 import org.jivesoftware.database.SequenceManager;
-import org.jivesoftware.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmpp.packet.JID;
@@ -29,6 +28,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -327,7 +327,7 @@ public final class Service
                 final Mac mac = Mac.getInstance( "HmacSHA1" );
                 mac.init( secretKey );
                 final byte[] nonce = mac.doFinal( username.getBytes( StandardCharsets.UTF_8 ) );
-                password = StringUtils.encodeBase64( nonce );
+                password = Base64.getEncoder().encodeToString( nonce );
             }
             catch ( InvalidKeyException | NoSuchAlgorithmException e )
             {

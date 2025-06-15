@@ -12,8 +12,8 @@
     String errorMessage = null;
 
     // Get handle on the plugin
-    PionTurn plugin = (PionTurn) XMPPServer.getInstance().getPluginManager().getPlugin("pionturn");
-	boolean isServiceDiscoveryAvailable = XMPPServer.getInstance().getPluginManager().getPlugin("externalservicediscovery") != null;
+    PionTurn plugin = (PionTurn) XMPPServer.getInstance().getPluginManager().getPluginByName("PionTurn").orElse(null);
+	boolean isServiceDiscoveryAvailable = XMPPServer.getInstance().getPluginManager().getPluginByName("External Service Discovery").isPresent();
 
     if (update) {   
         String service = request.getParameter("service");      
